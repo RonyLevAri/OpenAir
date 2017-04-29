@@ -19,7 +19,7 @@ from django.core.exceptions import ImproperlyConfigured
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 print("In base.py ------")
 here = lambda *dirs: join(abspath(dirname(__file__)), *dirs)
-BASE_DIR = here("..")
+BASE_DIR = here("..", "..")
 root = lambda *dirs: join(abspath(BASE_DIR), *dirs)
 
 
