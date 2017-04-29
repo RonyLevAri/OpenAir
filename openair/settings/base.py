@@ -10,13 +10,18 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
-import os
+
+from os.path import join, abspath, dirname
+from os import environ
 from django.core.exceptions import ImproperlyConfigured
 
 # TODO delete all print statements
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 print("In base.py ------")
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+here = lambda *dirs: join(abspath(dirname(__file__)), *dirs)
+BASE_DIR = here("..")
+root = lambda *dirs: join(abspath(BASE_DIR), *dirs)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -24,7 +29,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 def get_env_variable(var_name):
     try:
-        return os.environ[var_name]
+        return environ[var_name]
     except KeyError:
         error_msg = "Set the %s environment variable" % var_name
         raise ImproperlyConfigured(error_msg)
@@ -63,7 +68,7 @@ ROOT_URLCONF = 'openair.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates")],
+        'DIRS': [root('templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,16 +87,7 @@ WSGI_APPLICATION = 'openair.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'monitor_db',
-#         'USER': '',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
+# moved to test and dev files and some hidden as ENV
 
 
 # Password validation
@@ -125,8 +121,9 @@ LANGUAGES = (
 )
 
 LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'locale'),
+    root('locale'),
 )
+
 
 TIME_ZONE = 'Israel'
 
@@ -143,5 +140,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    root('static'),
 )
