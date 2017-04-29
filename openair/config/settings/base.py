@@ -63,7 +63,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'openair.urls'
+ROOT_URLCONF = 'openair.config.urls'
 
 TEMPLATES = [
     {
