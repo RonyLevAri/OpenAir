@@ -59,6 +59,14 @@ class Station(models.Model):
         max_length=35,
         verbose_name=_("region"),
     )
+    longitude = models.FloatField(
+        verbose_name=_("longitude"),
+        default=0.0,
+    )
+    latitude = models.FloatField(
+        verbose_name=_("latitude"),
+        default=0.0,
+    )
 
     # TODO manager
     # objects = managers.StationManager()
