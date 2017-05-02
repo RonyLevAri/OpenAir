@@ -35,10 +35,10 @@ class Owner(models.Model):
 
 class Station(models.Model):
 
-    owners = models.ManyToManyField(
+    owners = models.ForeignKey(
         Owner,
-        verbose_name=_("station owners"),
-        related_name="stations",
+        verbose_name=_("owner"),
+        related_name="owner",
     )
 
     id = models.IntegerField(
