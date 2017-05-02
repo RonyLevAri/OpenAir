@@ -35,7 +35,7 @@ class Owner(models.Model):
 
 class Station(models.Model):
 
-    owners = models.ForeignKey(
+    owner = models.ForeignKey(
         Owner,
         verbose_name=_("owner"),
         related_name="owner",
