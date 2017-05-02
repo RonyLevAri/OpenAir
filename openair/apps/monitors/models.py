@@ -19,6 +19,7 @@ from django.utils.translation import ugettext_lazy as _
 class Owner(models.Model):
 
     name = models.CharField(
+        primary_key=True,
         max_length=35,
         verbose_name=_("name")
     )
@@ -26,7 +27,7 @@ class Owner(models.Model):
     class Meta:
         verbose_name = _("owner")
         verbose_name_plural = _("owners")
-        ordering = ("id",)
+        ordering = ("name",)
 
     def __str__(self):
         return self.name
@@ -58,14 +59,6 @@ class Station(models.Model):
     region = models.CharField(
         max_length=35,
         verbose_name=_("region"),
-    )
-    longitude = models.FloatField(
-        verbose_name=_("longitude"),
-        default=0.0,
-    )
-    latitude = models.FloatField(
-        verbose_name=_("latitude"),
-        default=0.0,
     )
 
     # TODO manager
