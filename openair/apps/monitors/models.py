@@ -5,22 +5,37 @@ from django.utils.translation import ugettext_lazy as _
 # TODO manager
 # from . import managers
 
-
 # Relations
 # Attributes - Mandatory
 # Attributes - Optional
+
 # Object Manager
+
 # Custom Properties
+# @property
+# def full_name(self):
+#     "Returns the person's full name."
+#     return '%s %s' % (self.first_name, self.last_name)
+
 # Methods
+# def baby_boomer_status(self):
+#     "Returns the person's baby-boomer status."
+#     import datetime
+#     if self.birth_date < datetime.date(1945, 8, 1):
+#         return "Pre-boomer"
+#     elif self.birth_date < datetime.date(1965, 1, 1):
+#         return "Baby boomer"
+#     else:
+#         return "Post-boomer"
+#
+# TODO document mana fields that were ommited i the database
+# fields excluded from database
 # Meta and String
 
-
-# Create your models here.
 class Owner(models.Model):
-
     name = models.CharField(
         primary_key=True,
-        max_length=35,
+        max_length=60,
         verbose_name=_("name")
     )
 
@@ -34,7 +49,6 @@ class Owner(models.Model):
 
 
 class Station(models.Model):
-
     owner = models.ForeignKey(
         Owner,
         verbose_name=_("owner"),
@@ -46,19 +60,22 @@ class Station(models.Model):
         verbose_name=_("id"),
     )
     name = models.CharField(
-        max_length=35,
+        max_length=60,
         verbose_name=_("name"),
-    )
-    timebase = models.IntegerField(
-        verbose_name=_("timebase"),
-    )
-    is_active = models.BooleanField(
-        default=True,
-        verbose_name=_("is active"),
     )
     region = models.CharField(
         max_length=35,
         verbose_name=_("region"),
+    )
+    longitude = models.FloatField(
+        verbose_name=_("longitude"),
+    )
+    latitude = models.FloatField(
+        verbose_name=_("latitude"),
+    )
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name=_("is active"),
     )
 
     # TODO manager
@@ -67,40 +84,34 @@ class Station(models.Model):
     class Meta:
         verbose_name = _("station")
         verbose_name_plural = _("stations")
-        ordering = ("id", "is_active",)
 
     def __str__(self):
-        return self.name
+        return '{name}, {region}'.format(name=self.name, region=self.region)
 
 
 class LawValue(models.Model):
-
     value_type = models.CharField(
-        max_length=35,
-        verbose_name=_("type"),
+        primary_key=True,
+        max_length=60,
+        verbose_name=_("law value type"),
     )
 
     class Meta:
         verbose_name = _("law value")
         verbose_name_plural = _("law values")
-        ordering = ("value_type",)
 
     def __str__(self):
         return self.value_type
 
 
 class Pollutant(models.Model):
-
     law_values = models.ManyToManyField(
         LawValue,
         verbose_name=_("pollutants law values"),
-        related_name="pollutants"
+        related_name="pollutants",
+        through="PollutantLawValue",
     )
 
-    id = models.IntegerField(
-        primary_key=True,
-        verbose_name=_("id"),
-    )
     name = models.CharField(
         max_length=35,
         verbose_name=_("name"),
@@ -109,7 +120,11 @@ class Pollutant(models.Model):
     fullname = models.CharField(
         max_length=60,
         verbose_name=_("verbose name"),
-        unique=True,
+        null=True,
+    )
+    mana_id = models.IntegerField(
+        verbose_name=_("mana id"),
+        null=True,
     )
     type = models.IntegerField(
         verbose_name=_("type id"),
@@ -118,58 +133,51 @@ class Pollutant(models.Model):
     class Meta:
         verbose_name = _("pollutant")
         verbose_name_plural = _("pollutants")
-        ordering = ("id", "name",)
 
     def __str__(self):
-        return self.name
+        return '{name} - {fullname}'.format(name=self.name, fullname=self.fullname)
 
 
-class Monitor(models.Model):
-
-    station = models.ForeignKey(
-        Station,
-        verbose_name=_("station"),
-        related_name="monitors"
-    )
+class PollutantLawValue(models.Model):
     pollutant = models.ForeignKey(
         Pollutant,
-        verbose_name=_("pollutant"),
-        related_name="monitors",
+        verbose_name=_("pollutant")
     )
-
-    id = models.IntegerField(
-        primary_key=True,
-        verbose_name=_("id"),
+    law_value = models.ForeignKey(
+        LawValue,
+        verbose_name=_("law value type")
     )
-    is_active = models.BooleanField(
-        default=True,
-        verbose_name=_("is active"),
+    value = models.FloatField(
+        verbose_name=_("value")
     )
     units = models.CharField(
         max_length=35,
-        verbose_name=_("units of measurement"),
+        verbose_name=_("units")
     )
 
     class Meta:
-        verbose_name = _('measurement')
-        verbose_name_plural = _('measurements')
-        ordering = ("station", "pollutant", "is_active",)
+        verbose_name = _("pollutant")
+        verbose_name_plural = _("pollutants")
+        unique_together = ("pollutant", "law_value")
 
     def __str__(self):
-        return 'Pollutant measured: {pollutant}, Units: {units}'.format(pollutant=self.pollutant, units=self.units)
+        return '{law_value} of {pollutant} is {value} {units}'.format(pollutant=self.pollutant,
+                                                                      law_value=self.law_value, value=str(self.value),
+                                                                      units=self.units)
 
 
 class Measurement(models.Model):
-
-    monitor = models.ForeignKey(
-        Monitor,
-        verbose_name=_("monitor"),
-        related_name="measurements"
+    station = models.ForeignKey(
+        Station,
+        verbose_name=_("station"),
+        related_name="measurements",
+        db_index=True,
     )
     pollutant = models.ForeignKey(
         Pollutant,
         verbose_name=_("pollutant"),
-        related_name="measurements"
+        related_name="measurements",
+        db_index=True,
     )
 
     id = models.BigAutoField(
@@ -187,9 +195,10 @@ class Measurement(models.Model):
     )
     value = models.FloatField(
         verbose_name=_("value"),
+        null=True,
     )
     units = models.CharField(
-        max_length=35,
+        max_length=10,
         verbose_name=_("units"),
     )
     status = models.IntegerField(
@@ -198,18 +207,19 @@ class Measurement(models.Model):
     is_valid = models.BooleanField(
         default=True,
         verbose_name=_("is measurement valid"),
+        db_index=True,
     )
-    timestamp = models.DateTimeField(
-        auto_now=True,
-        verbose_name=_("queried on"),
+    added = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_("inserted to database"),
     )
 
     class Meta:
-        verbose_name = _('measurement')
-        verbose_name_plural = _('measurements')
-        ordering = ("pollutant", "is_valid",)
+        verbose_name = _("measurement")
+        verbose_name_plural = _("measurements")
+        get_latest_by = "measured"
 
     def __str__(self):
-        return 'Pollutant: {pollutant}, Units: {units}, Value: {value}, Valid: {valid}, Coordinate: ({longitude},{latitude})'.format(
-            pollutant=self.pollutant, units=self.units, value=self.value, valid=self.is_valid, longitude=self.longitude,
-            latitude=self.latitude)
+        return '{pollutant}: {value} {units}, Valid: {valid}, Coordinate: ({longitude}, {latitude}, at {measured})'.format(
+            pollutant=str(self.pollutant), units=self.units, value=str(self.value), valid=str(self.is_valid),
+            longitude=str(self.longitude), latitude=str(self.latitude), measured=str(self.measured))
