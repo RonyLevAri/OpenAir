@@ -23,7 +23,8 @@ from .views import api
 
 urlpatterns = [
     url(r'^(?P<filename>(robots.txt)|(humans.txt))$', home_files, name='home-files'),
-    url(r'^api/', api),
+    url(r'^timeline', include('openair.apps.monitors.urls')),
+    url(r'^api/$', api),
 ]
 
 urlpatterns += i18n_patterns(

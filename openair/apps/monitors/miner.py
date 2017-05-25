@@ -47,10 +47,10 @@ import logging
 import json
 from urllib.request import urlopen
 
-try:
-    from openair.apps.monitors import models
-except ImportError as e:
-    pass
+# try:
+#     from openair.apps.monitors import models
+# except ImportError as e:
+#     pass
 
 _STATION_FETCH_ROUTE = 'http://www.svivaaqm.net/api/stations?type=json'
 _STATION_FETCH_ROUT_PREFIX = 'http://www.svivaaqm.net/api/stations/'
@@ -69,8 +69,9 @@ def _fetch_from_mana(url):
     try:
         return urlopen(url)
     except ValueError as e:
-        logging.error(e)
-        raise
+        message = '{error}: fetch_from_mana(url)'.format(error=e, monitor_json=url)
+        logging.error(message)
+        raise message
 
 
 def _convert_http_response_to_json(http_response):
@@ -289,11 +290,11 @@ if __name__ == '__main__':
     try:
         station_list_response = _fetch_from_mana(_STATION_FETCH_ROUTE)
     except ValueError as e:
-        pass
+        print(e)
     try:
         station_list_json = _convert_http_response_to_json(station_list_response)
     except TypeError as e:
-        pass
+        print(e)
 
     all_stations_id = _extract_station_id_list_from_json(station_list_json)
 
@@ -302,15 +303,15 @@ if __name__ == '__main__':
             station_response = _fetch_from_mana(
                 ''.join([_STATION_FETCH_ROUT_PREFIX, str(station_id), _STATION_FETCH_ROUTE_POSTFIX]))
         except ValueError as e:
-            pass
+            print(e)
         try:
             station_json = _convert_http_response_to_json(station_response)
         except TypeError as e:
-            pass
+            print(e)
         try:
             station_data = _parse_single_station_json_response(station_json)
             _save_to_database(station_data)
         except AttributeError as e:
-            pass
+            print(e)
         except TypeError as e:
-            pass
+            print(e)

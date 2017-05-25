@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
-import json
+from django.http import JsonResponse
+from django.http import HttpResponse
 
 from django.shortcuts import render
 from django.utils.timezone import now
@@ -16,8 +17,6 @@ def home_files(request, filename):
 
 
 def api(request):
-    value = '{"my_key":"the value"}'
-    res = json.loads(value)
-    return res
-    # return render(request, "openair/index.html", {})
+    response_data = {'Rony': 'Lev Ari',}
+    return JsonResponse(response_data, status=201)
 
