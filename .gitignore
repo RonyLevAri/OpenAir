@@ -141,6 +141,7 @@ $RECYCLE.BIN/
 htmlcov
 .DS_Store
 dist
+openair/client/build
 
 # Runtime data
 pids
@@ -157,7 +158,7 @@ lib-cov
 .lock-wscript
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
+openair/client/build/Release
 
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
