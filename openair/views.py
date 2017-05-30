@@ -9,7 +9,7 @@ from django.utils.timezone import now
 
 def home(request):
     today = datetime.date.today()
-    return render(request, "openair/index.html", {'today': today, 'now': now()})
+    return render(request, "base.html", {'today': today, 'now': now()})
 
 
 def home_files(request, filename):
