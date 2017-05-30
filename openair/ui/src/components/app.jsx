@@ -24,7 +24,7 @@ export default class App extends React.Component {
         console.log('In render');
         return (
             <div>
-                <h1>Hello World and me!!!</h1>
+                <h1>Hello World and me!!!!!!</h1>
             </div>
         );
     }

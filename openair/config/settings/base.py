@@ -22,6 +22,8 @@ here = lambda *dirs: join(abspath(dirname(__file__)), *dirs)
 BASE_DIR = here("..", "..")
 root = lambda *dirs: join(abspath(BASE_DIR), *dirs)
 
+print('base dir: ' + BASE_DIR)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -50,7 +52,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'openair.apps.monitors'
+    'openair.apps.monitors',
+    'webpack_loader',
 ]
 
 MIDDLEWARE = [
@@ -141,5 +144,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    root('static'),
+    # root('static'),
+    root('ui'),
 )
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'dist/',
+        'STATS_FILE': root('ui/webpack-stats.json'),
+    }
+}

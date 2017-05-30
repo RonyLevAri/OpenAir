@@ -18,16 +18,15 @@ from django.contrib import admin
 from django.conf.urls.i18n import i18n_patterns
 from django.views import generic
 
-from .views import home
-from .views import home_files
-from .views import api
+# from .views import home
+# from .views import home_files
+# from .views import api
 
 urlpatterns = [
-    url(r'^$', generic.TemplateView.as_view(template_name='view1.html')),
-    url(r'^view2$', generic.TemplateView.as_view(template_name='view2.html')),
-    url(r'^(?P<filename>(robots.txt)|(humans.txt))$', home_files, name='home-files'),
+    url(r'^$', generic.TemplateView.as_view(template_name='base.html')),
+    # url(r'^(?P<filename>(robots.txt)|(humans.txt))$', home_files, name='home-files'),
     url(r'^timeline/', include('openair.apps.monitors.urls')),
-    url(r'^api/$', api),
+    # url(r'^api/$', api),
 ]
 
 # urlpatterns += i18n_patterns(
