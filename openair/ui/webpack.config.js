@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const webpack = require('webpack');
+var BundleTracker  = require('webpack-bundle-tracker');
 
 const isProductionMode = process.env.NODE_ENV === 'production';
 const cssDev = [{loader: 'style-loader'}, {loader: 'css-loader'},{loader: 'sass-loader'}];
@@ -17,7 +18,7 @@ const cssConfig = isProductionMode ? cssProd : cssDev;
 
 module.exports = {
     entry: {
-        index: './src/index.js'
+        index: ['whatwg-fetch', './src/index.js']
     },
     output: {
         path: path.resolve('dist'),
@@ -56,7 +57,8 @@ module.exports = {
     devServer: {
         contentBase: path.join('dist'),
         compress: true,
-        hot: true
+        hot: true,
+        inline: true
     },
     plugins: [
         new ExtractTextPlugin({
@@ -75,6 +77,7 @@ module.exports = {
             hash: true
         }),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NamedModulesPlugin()
+        new webpack.NamedModulesPlugin(),
+        new BundleTracker({path: __dirname, filename: './webpack-stats.json'})
     ]
 };

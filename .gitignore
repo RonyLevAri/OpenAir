@@ -142,6 +142,7 @@ htmlcov
 .DS_Store
 dist
 openair/client/build
+webpack-stats.json
 
 # Runtime data
 pids

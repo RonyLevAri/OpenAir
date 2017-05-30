@@ -29,6 +29,8 @@
     "image-webpack-loader": "^3.3.1",
     "style-loader": "^0.18.1",
     "webpack": "^2.6.1",
-    "webpack-dev-server": "^2.4.5"
+    "webpack-bundle-tracker": "^0.2.0",
+    "webpack-dev-server": "^2.4.5",
+    "whatwg-fetch": "^2.0.3"
   }
 }
