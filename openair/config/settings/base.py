@@ -144,8 +144,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    # root('static'),
     root('ui'),
+    root('ui/dist/images'),
 )
 
 WEBPACK_LOADER = {
