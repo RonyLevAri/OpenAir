@@ -19,9 +19,8 @@ def measurements(request):
 
 def stations(request):
     data_model = models.Station.objects.all()
-    the_json = serializers.serialize('json', data_model)
-    response = JsonResponse(json.dumps(the_json, ensure_ascii=False), safe=False)
-    return response
+    the_json = str(serializers.serialize('json', data_model))
+    return HttpResponse(the_json)
 
 
 def pollutants(request):
