@@ -2,7 +2,9 @@ import React from 'react';
 import 'whatwg-fetch';
 
 import OptionsTitle from './options_title_panel';
-
+import {getStations} from '../utils/api';
+import {buildStationObj} from '../utils/common';
+import Station from './station_list_item';
 
 export default class App extends React.Component {
 
@@ -14,33 +16,45 @@ export default class App extends React.Component {
         };
     }
 
+    componentWillMount() {
+        // called before the component is dom presented
+    }
+
+    componentWillUnmount() {
+
+    }
+
     componentDidMount() {
 
-        fetch('http://localhost:8000/timeline/stations')
-            .then(res => res.json())
-            .then(data => {
-                let stations = data.map(function(item){
-                    let station = {};
-                    station.key = item["pk"];
-                    station.is_active = item["fields"]["is_active"];
-                    station.latitude = item["fields"]["latitude"];
-                    station.longitude = item["fields"]["longitude"];
-                    station.name = item["fields"]["name"];
-                    return station
-                }).slice(0, 8);
+        // can be used for ajax requests and to set things like interval polling
 
+        getStations()
+            .then(data => {
+                let stations = data.map(item => buildStationObj(item)).slice(0, 8);
+                console.log(stations);
                 this.setState({
                     "stations": stations
                 });
             })
             .catch(err => {
                 console.log(err);
-            });
-        console.log('In component did mount');
+        });
     }
 
     render() {
-        console.log('In render');
+        console.log('In app render');
+
+        // let stations = this.state.stations.map(station => {
+        //     return (
+        //         <Station
+        //             key={station.id}
+        //             name={station.name}
+        //             isActive={station.isActive}
+        //             isChose={station.isChosen}
+        //         />
+        //     );
+        // });
+
         return (
             <div className="root">
 
