@@ -1,5 +1,8 @@
 import React from 'react';
-import 'whatwg-fetch'
+import 'whatwg-fetch';
+
+import OptionsTitle from './options_title_panel';
+
 
 export default class App extends React.Component {
 
@@ -77,19 +80,15 @@ export default class App extends React.Component {
                     <div className="options w3-col m2 dark-primary-color w3-center w3-border-right w3-border-left col-stretch">
 
                         <div className="text-primary-color">
-                            <div className="w3-border-bottom default-primary-color">
-                                TIME PICKER
-                            </div>
+                            <OptionsTitle title={'time options'}/>
                             <div>
-                                    from and to schedueling
+                                from and to schedueling
                             </div>
                         </div>
 
                         <div className="text-primary-color">
 
-                            <div className="w3-border-bottom w3-border-top default-primary-color">
-                                POLLUTANTS
-                            </div>
+                            <OptionsTitle title={'pollutant options'}/>
 
                             <div>
 
@@ -123,11 +122,10 @@ export default class App extends React.Component {
 
 
                         <div className="text-primary-color">
-                            <div className="w3-border-bottom w3-border-top default-primary-color">
-                                STATIONS
-                            </div>
+                            <OptionsTitle title={'station options'}/>
                             <div>
                                 <ul className="station-list w3-ul w3-right-align">
+
                                     <li className="w3-container inactive-dark">
                                         <span>מטולה</span>
                                         <i className="material-icons">settings_input_antenna</i>
@@ -163,7 +161,6 @@ export default class App extends React.Component {
                                 </ul>
                             </div>
                         </div>
-
 
                     </div>
 
