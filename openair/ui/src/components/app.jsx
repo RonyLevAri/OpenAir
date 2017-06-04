@@ -5,11 +5,11 @@ import Header from './header';
 import Footer from './footer';
 import VisualizationsMenu from './visualizations_menu';
 import OptionsPanel from './options_panel';
-import ChoicePanel from './choices_panel';
+import PresentationPanel from './presentation_panel';
 
-
-import GraphList from './graph_list';
-import GIS from './gis';
+// import ChoicePanel from './choices_panel';
+// import GraphList from './graph_list';
+// import GIS from './gis';
 
 
 // import StationsList from './stations_list';
@@ -37,15 +37,15 @@ export default class App extends React.Component {
                 {key: 2, name: 'AQI', icon: 'grain', isSelectable: true, isChosen: false}
             ],
             graphs: [
-                // {key: 1, isChosen: true, isGraph: true},
-                // {key: 2, isChosen: false, isGraph: true}
+                {key: 1, isChosen: true, isGraph: true},
+                {key: 2, isChosen: false, isGraph: true}
             ],
             selectedGraph: null,
             graphSelections: [
-                // {key: 1, text: 'stam', type: 'pollutant'},
-                // {key: 2, text: 'stam', type: 'station'},
-                // {key: 3, text: 'stam', type: 'start'},
-                // {key: 4, text: 'stam', type: 'end'},
+                {key: 1, text: 'stam', type: 'pollutant'},
+                {key: 2, text: 'stam', type: 'station'},
+                {key: 3, text: 'stam', type: 'start'},
+                {key: 4, text: 'stam', type: 'end'},
             ]
         };
         this.handleClick = this.handleClick.bind(this);
@@ -99,13 +99,7 @@ export default class App extends React.Component {
                 <div className="main w3-row w3-border">
                     <VisualizationsMenu visualizationsOptions={this.state.visualizationsOptions}/>
                     <OptionsPanel pollutants={this.state.pollutants} />
-                    <div className="presentation w3-col m9 col-stretch secondary-text-color">
-                        <div className="w3-row">
-                            <ChoicePanel graphSelections={this.state.graphSelections}/>
-                            <GraphList graphs={this.state.graphs}/>
-                            <GIS/>
-                        </div>
-                    </div>
+                    <PresentationPanel graphSelections={this.state.graphSelections} graphs={this.state.graphs} />*/}
                 </div>
                 <Footer/>
             </div>

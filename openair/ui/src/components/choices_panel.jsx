@@ -5,7 +5,7 @@ const ChoicesPanel = (props) => {
 
     let choices = props.graphSelections.map(choice => {
         return (
-            <Choice text={choice.text}/>
+            <Choice key={choice.key} text={choice.text}/>
         );
     });
     if (choices.length === 0) {
