@@ -4,7 +4,7 @@ import 'whatwg-fetch';
 import OptionsTitle from './options_title_panel';
 import {getStations} from '../utils/api';
 import {buildStationObj} from '../utils/common';
-import Station from './station_list_item';
+import StationsList from './stations_list';
 
 import {updateStationList} from '../actions/actions';
 
@@ -62,26 +62,6 @@ export default class App extends React.Component {
 
     render() {
         console.log('In app render');
-
-        let stations = this.state.stations.map(station => {
-
-            console.log("create stations instance in app");
-            console.log("station key: " + station.key);
-            console.log("station name: " + station.name);
-            console.log("station is active: " + station.isActive);
-            console.log("station is chosen: " + station.isChosen);
-            return (
-                <Station
-                    key={station.key}
-                    name={station.name}
-                    isActive={station.isActive}
-                    isChosen={station.isChosen}
-                />
-            );
-        });
-
-
-
         return (
             <div className="root">
 
@@ -164,11 +144,7 @@ export default class App extends React.Component {
 
                         <div className="text-primary-color">
                             <OptionsTitle title={'station options'}/>
-                            <div>
-                                <ul className="station-list w3-ul w3-right-align">
-                                    {stations}
-                                </ul>
-                            </div>
+                            <StationsList stations={this.state.stations}/>
                         </div>
                     </div>
 
