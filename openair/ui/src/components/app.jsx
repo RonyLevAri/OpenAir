@@ -4,15 +4,15 @@ import 'whatwg-fetch';
 import Header from './header';
 import Footer from './footer';
 import VisualizationsMenu from './visualizations_menu';
-import OptionsTitle from './options_title_panel';
-import PollutantBoard from './options_pollutant_board';
-import TimeBoard from './options_time_board';
+import OptionsPanel from './options_panel';
+
+
 import GraphList from './graph_list';
 import GIS from './gis';
 
 
 // import StationsList from './stations_list';
-import StationsList2 from '../containers/stations_list';
+// import StationsList2 from '../containers/stations_list';
 
 // import {getStations} from '../utils/api';
 // import {buildStationObj} from '../utils/common';
@@ -96,29 +96,26 @@ export default class App extends React.Component {
 
                     <VisualizationsMenu visualizationsOptions={this.state.visualizationsOptions}/>
 
-                    <div className="options w3-col m2 dark-primary-color w3-center w3-border-right w3-border-left col-stretch">
+                    <OptionsPanel pollutants={this.state.pollutants} />
+                    {/*<div className="options w3-col m2 dark-primary-color w3-center w3-border-right w3-border-left col-stretch">*/}
 
-                        <div className="text-primary-color">
-
-                            <OptionsTitle title={'time options'}/>
-                            <TimeBoard/>
-
-                        </div>
-
-
-                        <div className="text-primary-color">
-
-                            <OptionsTitle title={'pollutant options'}/>
-                            <PollutantBoard pollutants={this.state.pollutants}/>
-
-                        </div>
+                        {/*<div className="text-primary-color">*/}
+                            {/*<OptionsTitle title={'time options'}/>*/}
+                            {/*<TimeBoard/>*/}
+                        {/*</div>*/}
 
 
-                        <div className="text-primary-color">
-                            <OptionsTitle title={'station options'}/>
-                            <StationsList2/>
-                        </div>
-                    </div>
+                        {/*<div className="text-primary-color">*/}
+                            {/*<OptionsTitle title={'pollutant options'}/>*/}
+                            {/*<PollutantBoard pollutants={this.state.pollutants}/>*/}
+                        {/*</div>*/}
+
+
+                        {/*<div className="text-primary-color">*/}
+                            {/*<OptionsTitle title={'station options'}/>*/}
+                            {/*<StationsList2/>*/}
+                        {/*</div>*/}
+                    {/*</div>*/}
 
                     <div className="presentation w3-col m9 col-stretch secondary-text-color">
 
