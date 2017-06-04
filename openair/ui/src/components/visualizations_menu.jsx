@@ -3,7 +3,7 @@ import VisualizationKind from './visualization_menu_item';
 
 const VisualizationsMenu = (props) => {
 
-    let visualizations = props.visualizations.map(kind => {
+    let visualizations = props.visualizationsOptions.map(kind => {
         return (
             <VisualizationKind
                 key={kind.key}

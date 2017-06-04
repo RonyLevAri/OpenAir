@@ -3,9 +3,13 @@ import 'whatwg-fetch';
 
 import Header from './header';
 import Footer from './footer';
+import VisualizationsMenu from './visualizations_menu';
 import OptionsTitle from './options_title_panel';
 import PollutantBoard from './options_pollutant_board';
-import VisualizationsMenu from './visualizations_menu';
+import TimeBoard from './options_time_board';
+import GraphList from './graph_list';
+import GIS from './gis';
+
 
 // import StationsList from './stations_list';
 import StationsList2 from '../containers/stations_list';
@@ -27,9 +31,13 @@ export default class App extends React.Component {
                 {key: 5, name: 'PM10', isSelectable: true, isChosen: false},
                 {key: 6, name: 'CO', isSelectable: true, isChosen: false}
             ],
-            visualizations: [
+            visualizationsOptions: [
                 {key: 1, name: 'Timeline', icon: 'timeline', isSelectable: true, isChosen: true},
                 {key: 2, name: 'AQI', icon: 'grain', isSelectable: true, isChosen: false}
+            ],
+            graphs: [
+                {key: 1, isChosen: true, isGraph: true},
+                {key: 2, isChosen: false, isGraph: true}
             ],
             selectedStation: null,
             selectedPollutant: null,
@@ -86,34 +94,17 @@ export default class App extends React.Component {
                 <Header/>
                 <div className="main w3-row w3-border">
 
-                    <VisualizationsMenu visualizations={this.state.visualizations}/>
-
-                    {/*<div className="menu w3-col m1 default-primary-color col-stretch">*/}
-
-                        {/*/!*<div className="v-menu-item text-primary-color selectable v-menu-item-chosen">*!/*/}
-                            {/*/!*<div className="w3-cell-middle w3-center">*!/*/}
-                                {/*/!*<i className="material-icons md-36">timeline</i>*!/*/}
-                                {/*/!*<div>Timeline</div>*!/*/}
-                            {/*/!*</div>*!/*/}
-                        {/*/!*</div>*!/*/}
-
-                        {/*/!*<div className="v-menu-item text-primary-color selectable">*!/*/}
-                            {/*/!*<div className="w3-cell-middle w3-center">*!/*/}
-                                {/*/!*<i className="material-icons md-36">grain</i>*!/*/}
-                                {/*/!*<div>AQI</div>*!/*/}
-                            {/*/!*</div>*!/*/}
-                        {/*/!*</div>*!/*/}
-
-                    {/*</div>*/}
+                    <VisualizationsMenu visualizationsOptions={this.state.visualizationsOptions}/>
 
                     <div className="options w3-col m2 dark-primary-color w3-center w3-border-right w3-border-left col-stretch">
 
                         <div className="text-primary-color">
+
                             <OptionsTitle title={'time options'}/>
-                            <div>
-                                from and to schedueling
-                            </div>
+                            <TimeBoard/>
+
                         </div>
+
 
                         <div className="text-primary-color">
 
@@ -125,7 +116,6 @@ export default class App extends React.Component {
 
                         <div className="text-primary-color">
                             <OptionsTitle title={'station options'}/>
-                            {/*<StationsList stations={this.state.stations}/>*/}
                             <StationsList2/>
                         </div>
                     </div>
@@ -153,15 +143,8 @@ export default class App extends React.Component {
 
                             </div>
 
-
-                            <div className="w3-col m7 w3-container">
-                                <div className="graph w3-card-2 w3-section white">one card</div>
-                                <div className="graph w3-card-2 w3-section white">two card</div>
-                            </div>
-
-                            <div className="gis w3-col m5 w3-container">
-                                <div className="w3-card-2 w3-section white">GIS</div>
-                            </div>
+                            <GraphList graphs={this.state.graphs}/>
+                            <GIS/>
 
                         </div>
 
