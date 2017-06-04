@@ -2,19 +2,22 @@ import React from 'react';
 import 'whatwg-fetch';
 
 import OptionsTitle from './options_title_panel';
-import {getStations} from '../utils/api';
-import {buildStationObj} from '../utils/common';
 import StationsList from './stations_list';
 
-import {updateStationList} from '../actions/actions';
+import {getStations} from '../utils/api';
+import {buildStationObj} from '../utils/common';
 
 export default class App extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            "stations": [],
-            "pollutants": ['NOX', 'O3', 'CO2', 'PM2.5', 'PM10', 'CO']
+            stations: [],
+            pollutants: ['NOX', 'O3', 'CO2', 'PM2.5', 'PM10', 'CO'],
+            selectedStation: null,
+            selectedPollutant: null,
+            selectedStartTime: null,
+            selectedEndTime: null
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -34,7 +37,7 @@ export default class App extends React.Component {
                 let stations = data.map(item => buildStationObj(item)).slice(0, 8);
                 console.log("constructing the station objects for app props: " + stations);
                 this.setState({
-                    "stations": stations
+                    stations: stations
                 });
             })
             .catch(err => {
@@ -51,7 +54,7 @@ export default class App extends React.Component {
                 let stations = data.map(item => buildStationObj(item)).slice(0, 8);
                 console.log("constructing the station objects for app props: " + stations);
                 this.setState({
-                    "stations": stations
+                    stations: stations
                 });
             })
             .catch(err => {

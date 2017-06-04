@@ -6,8 +6,8 @@ export default class Station extends React.Component {
         super(props);
         console.log("In constructor, and the props: " + props.isActive + " " + props.isChosen);
         this.state = {
-            "isActive": props.isActive,
-            "isChosen": props.isChosen
+            isActive: props.isActive,
+            isChosen: props.isChosen
         };
     }
 
