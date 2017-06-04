@@ -6,6 +6,8 @@ import {getStations} from '../utils/api';
 import {buildStationObj} from '../utils/common';
 import Station from './station_list_item';
 
+import {updateStationList} from '../actions/actions';
+
 export default class App extends React.Component {
 
     constructor(props) {
@@ -14,10 +16,11 @@ export default class App extends React.Component {
             "stations": [],
             "pollutants": ['NOX', 'O3', 'CO2', 'PM2.5', 'PM10', 'CO']
         };
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentWillMount() {
-        // called before the component is dom presented
+
     }
 
     componentWillUnmount() {
@@ -26,12 +29,10 @@ export default class App extends React.Component {
 
     componentDidMount() {
 
-        // can be used for ajax requests and to set things like interval polling
-
         getStations()
             .then(data => {
                 let stations = data.map(item => buildStationObj(item)).slice(0, 8);
-                console.log(stations);
+                console.log("constructing the station objects for app props: " + stations);
                 this.setState({
                     "stations": stations
                 });
@@ -41,19 +42,45 @@ export default class App extends React.Component {
         });
     }
 
+    handleClick() {
+
+        // TODO dispatch to the store
+
+        getStations()
+            .then(data => {
+                let stations = data.map(item => buildStationObj(item)).slice(0, 8);
+                console.log("constructing the station objects for app props: " + stations);
+                this.setState({
+                    "stations": stations
+                });
+            })
+            .catch(err => {
+                console.log(err);
+        });
+
+    }
+
     render() {
         console.log('In app render');
 
-        // let stations = this.state.stations.map(station => {
-        //     return (
-        //         <Station
-        //             key={station.id}
-        //             name={station.name}
-        //             isActive={station.isActive}
-        //             isChose={station.isChosen}
-        //         />
-        //     );
-        // });
+        let stations = this.state.stations.map(station => {
+
+            console.log("create stations instance in app");
+            console.log("station key: " + station.key);
+            console.log("station name: " + station.name);
+            console.log("station is active: " + station.isActive);
+            console.log("station is chosen: " + station.isChosen);
+            return (
+                <Station
+                    key={station.key}
+                    name={station.name}
+                    isActive={station.isActive}
+                    isChosen={station.isChosen}
+                />
+            );
+        });
+
+
 
         return (
             <div className="root">
@@ -66,7 +93,7 @@ export default class App extends React.Component {
 
                     <div className="w3-col m9 white col-stretch col-header">
                         <button className="w3-btn accent-color text-primary-color text-strong">Create New View</button>
-                        <button className="w3-btn w3-right accent-color text-primary-color text-strong">Sign Up</button>
+                        <button className="w3-btn w3-right accent-color text-primary-color text-strong" onClick={this.handleClick}>Sign Up</button>
                     </div>
 
                 </div>
@@ -139,43 +166,10 @@ export default class App extends React.Component {
                             <OptionsTitle title={'station options'}/>
                             <div>
                                 <ul className="station-list w3-ul w3-right-align">
-
-                                    <li className="w3-container inactive-dark">
-                                        <span>מטולה</span>
-                                        <i className="material-icons">settings_input_antenna</i>
-                                    </li>
-                                    <li className="text-primary-color selectable">
-                                        <span>מטולה</span>
-                                        <i className="material-icons">settings_input_antenna</i>
-                                    </li>
-                                    <li className="text-primary-color selectable">
-                                        <span>מטולה</span>
-                                        <i className="material-icons">settings_input_antenna</i>
-                                    </li>
-                                    <li className="w3-container inactive-dark">
-                                        <span>מטולה</span>
-                                        <i className="material-icons">settings_input_antenna</i>
-                                    </li>
-                                    <li className="text-primary-color selectable">
-                                        <span>מטולה</span>
-                                        <i className="material-icons">settings_input_antenna</i>
-                                    </li>
-                                    <li className="text-primary-color selectable">
-                                        <span>מטולה</span>
-                                        <i className="material-icons">settings_input_antenna</i>
-                                    </li>
-                                    <li className="text-primary-color selectable">
-                                        <span>מטולה</span>
-                                        <i className="material-icons">settings_input_antenna</i>
-                                    </li>
-                                    <li className="text-primary-color selectable">
-                                        <span>מטולה</span>
-                                        <i className="material-icons">settings_input_antenna</i>
-                                    </li>
+                                    {stations}
                                 </ul>
                             </div>
                         </div>
-
                     </div>
 
                     <div className="presentation w3-col m9 col-stretch secondary-text-color">
