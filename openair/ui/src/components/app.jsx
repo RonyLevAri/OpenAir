@@ -5,6 +5,7 @@ import Header from './header';
 import Footer from './footer';
 import VisualizationsMenu from './visualizations_menu';
 import OptionsPanel from './options_panel';
+import ChoicePanel from './choices_panel';
 
 
 import GraphList from './graph_list';
@@ -36,13 +37,16 @@ export default class App extends React.Component {
                 {key: 2, name: 'AQI', icon: 'grain', isSelectable: true, isChosen: false}
             ],
             graphs: [
-                {key: 1, isChosen: true, isGraph: true},
-                {key: 2, isChosen: false, isGraph: true}
+                // {key: 1, isChosen: true, isGraph: true},
+                // {key: 2, isChosen: false, isGraph: true}
             ],
-            selectedStation: null,
-            selectedPollutant: null,
-            selectedStartTime: null,
-            selectedEndTime: null
+            selectedGraph: null,
+            graphSelections: [
+                // {key: 1, text: 'stam', type: 'pollutant'},
+                // {key: 2, text: 'stam', type: 'station'},
+                // {key: 3, text: 'stam', type: 'start'},
+                // {key: 4, text: 'stam', type: 'end'},
+            ]
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -93,64 +97,17 @@ export default class App extends React.Component {
             <div className="root">
                 <Header/>
                 <div className="main w3-row w3-border">
-
                     <VisualizationsMenu visualizationsOptions={this.state.visualizationsOptions}/>
-
                     <OptionsPanel pollutants={this.state.pollutants} />
-                    {/*<div className="options w3-col m2 dark-primary-color w3-center w3-border-right w3-border-left col-stretch">*/}
-
-                        {/*<div className="text-primary-color">*/}
-                            {/*<OptionsTitle title={'time options'}/>*/}
-                            {/*<TimeBoard/>*/}
-                        {/*</div>*/}
-
-
-                        {/*<div className="text-primary-color">*/}
-                            {/*<OptionsTitle title={'pollutant options'}/>*/}
-                            {/*<PollutantBoard pollutants={this.state.pollutants}/>*/}
-                        {/*</div>*/}
-
-
-                        {/*<div className="text-primary-color">*/}
-                            {/*<OptionsTitle title={'station options'}/>*/}
-                            {/*<StationsList2/>*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
-
                     <div className="presentation w3-col m9 col-stretch secondary-text-color">
-
                         <div className="w3-row">
-
-                            <div className="w3-col m12 chosen-list">
-
-                                <div className="w3-bar w3-cell-middle w3-right-align chosen-badge">
-                                    <div className="badge-text">something</div>
-                                    <button className="w3-button w3-circle light-primary-color">x</button>
-                                </div>
-
-                                <div className="w3-bar w3-cell-middle w3-right-align chosen-badge">
-                                    <div className="badge-text">something</div>
-                                    <button className="w3-button w3-circle light-primary-color">x</button>
-                                </div>
-
-                                <div className="w3-bar w3-cell-middle w3-right-align chosen-badge">
-                                    <div className="badge-text">something</div>
-                                    <button className="w3-button w3-circle light-primary-color">x</button>
-                                </div>
-
-                            </div>
-
+                            <ChoicePanel graphSelections={this.state.graphSelections}/>
                             <GraphList graphs={this.state.graphs}/>
                             <GIS/>
-
                         </div>
-
                     </div>
-
                 </div>
-
                 <Footer/>
-
             </div>
         );
     }
