@@ -1,6 +1,7 @@
 import React from 'react';
 import 'whatwg-fetch';
 
+import Header from './header';
 import OptionsTitle from './options_title_panel';
 // import StationsList from './stations_list';
 import StationsList2 from '../containers/stations_list';
@@ -68,20 +69,7 @@ export default class App extends React.Component {
         console.log('In app render');
         return (
             <div className="root">
-
-                <div className="header w3-row w3-border">
-
-                    <div className="logo w3-col m3 dark-primary-color col-stretch col-header">
-
-                    </div>
-
-                    <div className="w3-col m9 white col-stretch col-header">
-                        <button className="w3-btn accent-color text-primary-color text-strong">Create New View</button>
-                        <button className="w3-btn w3-right accent-color text-primary-color text-strong" onClick={this.handleClick}>Sign Up</button>
-                    </div>
-
-                </div>
-
+                <Header/>
                 <div className="main w3-row w3-border">
 
                     <div className="menu w3-col m1 default-primary-color col-stretch">
