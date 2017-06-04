@@ -5,6 +5,7 @@ import Header from './header';
 import Footer from './footer';
 import OptionsTitle from './options_title_panel';
 import PollutantBoard from './options_pollutant_board';
+import VisualizationsMenu from './visualizations_menu';
 
 // import StationsList from './stations_list';
 import StationsList2 from '../containers/stations_list';
@@ -25,6 +26,10 @@ export default class App extends React.Component {
                 {key: 4, name: 'PM2.5', isSelectable: true, isChosen: false},
                 {key: 5, name: 'PM10', isSelectable: true, isChosen: false},
                 {key: 6, name: 'CO', isSelectable: true, isChosen: false}
+            ],
+            visualizations: [
+                {key: 1, name: 'Timeline', icon: 'timeline', isSelectable: true, isChosen: true},
+                {key: 2, name: 'AQI', icon: 'grain', isSelectable: true, isChosen: false}
             ],
             selectedStation: null,
             selectedPollutant: null,
@@ -72,7 +77,6 @@ export default class App extends React.Component {
         //     .catch(err => {
         //         console.log(err);
         // });
-
     }
 
     render() {
@@ -82,23 +86,25 @@ export default class App extends React.Component {
                 <Header/>
                 <div className="main w3-row w3-border">
 
-                    <div className="menu w3-col m1 default-primary-color col-stretch">
+                    <VisualizationsMenu visualizations={this.state.visualizations}/>
 
-                        <div className="v-menu-item text-primary-color selectable v-menu-item-chosen">
-                            <div className="w3-cell-middle w3-center">
-                                <i className="material-icons md-36">timeline</i>
-                                <div>Timeline</div>
-                            </div>
-                        </div>
+                    {/*<div className="menu w3-col m1 default-primary-color col-stretch">*/}
 
-                        <div className="v-menu-item text-primary-color selectable">
-                            <div className="w3-cell-middle w3-center">
-                                <i className="material-icons md-36">grain</i>
-                                <div>AQI</div>
-                            </div>
-                        </div>
+                        {/*/!*<div className="v-menu-item text-primary-color selectable v-menu-item-chosen">*!/*/}
+                            {/*/!*<div className="w3-cell-middle w3-center">*!/*/}
+                                {/*/!*<i className="material-icons md-36">timeline</i>*!/*/}
+                                {/*/!*<div>Timeline</div>*!/*/}
+                            {/*/!*</div>*!/*/}
+                        {/*/!*</div>*!/*/}
 
-                    </div>
+                        {/*/!*<div className="v-menu-item text-primary-color selectable">*!/*/}
+                            {/*/!*<div className="w3-cell-middle w3-center">*!/*/}
+                                {/*/!*<i className="material-icons md-36">grain</i>*!/*/}
+                                {/*/!*<div>AQI</div>*!/*/}
+                            {/*/!*</div>*!/*/}
+                        {/*/!*</div>*!/*/}
+
+                    {/*</div>*/}
 
                     <div className="options w3-col m2 dark-primary-color w3-center w3-border-right w3-border-left col-stretch">
 
@@ -113,35 +119,6 @@ export default class App extends React.Component {
 
                             <OptionsTitle title={'pollutant options'}/>
                             <PollutantBoard pollutants={this.state.pollutants}/>
-
-                            {/*<div>*/}
-
-                                {/*<div className="w3-row">*/}
-                                    {/*<div className="w3-third w3-center w3-border selectable">*/}
-                                        {/*<p>NOX</p>*/}
-                                    {/*</div>*/}
-                                    {/*<div className="w3-third w3-center w3-border selectable">*/}
-                                        {/*<p>PM10</p>*/}
-                                    {/*</div>*/}
-                                    {/*<div className="w3-third w3-center w3-border selectable">*/}
-                                        {/*<p>O3</p>*/}
-                                    {/*</div>*/}
-                                {/*</div>*/}
-
-
-                                {/*<div className="w3-row">*/}
-                                    {/*<div className="w3-third w3-center w3-border selectable chosen">*/}
-                                        {/*<p>NOX</p>*/}
-                                    {/*</div>*/}
-                                    {/*<div className="w3-third w3-center w3-border selectable">*/}
-                                        {/*<p>PM2.5</p>*/}
-                                    {/*</div>*/}
-                                    {/*<div className="w3-third w3-center w3-border selectable">*/}
-                                        {/*<p>CO2</p>*/}
-                                    {/*</div>*/}
-                                {/*</div>*/}
-
-                            {/*</div>*/}
 
                         </div>
 
