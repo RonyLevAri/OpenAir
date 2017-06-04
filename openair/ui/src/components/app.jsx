@@ -2,6 +2,7 @@ import React from 'react';
 import 'whatwg-fetch';
 
 import Header from './header';
+import Footer from './footer';
 import OptionsTitle from './options_title_panel';
 // import StationsList from './stations_list';
 import StationsList2 from '../containers/stations_list';
@@ -180,7 +181,7 @@ export default class App extends React.Component {
 
                 </div>
 
-                <div className="footer w3-row w3-container w3-border white w3-center"><p>footer</p></div>
+                <Footer/>
 
             </div>
         );
