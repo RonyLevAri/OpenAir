@@ -4,6 +4,8 @@ import 'whatwg-fetch';
 import Header from './header';
 import Footer from './footer';
 import OptionsTitle from './options_title_panel';
+import PollutantBoard from './options_pollutant_board';
+
 // import StationsList from './stations_list';
 import StationsList2 from '../containers/stations_list';
 
@@ -16,7 +18,14 @@ export default class App extends React.Component {
         super(props);
         this.state = {
             stations: [],
-            pollutants: ['NOX', 'O3', 'CO2', 'PM2.5', 'PM10', 'CO'],
+            pollutants: [
+                {key: 1, name: 'NOX', isSelectable: true, isChosen: false},
+                {key: 2, name: 'O3', isSelectable: true, isChosen: false},
+                {key: 3, name: 'CO2', isSelectable: true, isChosen: false},
+                {key: 4, name: 'PM2.5', isSelectable: true, isChosen: false},
+                {key: 5, name: 'PM10', isSelectable: true, isChosen: false},
+                {key: 6, name: 'CO', isSelectable: true, isChosen: false}
+            ],
             selectedStation: null,
             selectedPollutant: null,
             selectedStartTime: null,
@@ -103,35 +112,37 @@ export default class App extends React.Component {
                         <div className="text-primary-color">
 
                             <OptionsTitle title={'pollutant options'}/>
+                            <PollutantBoard pollutants={this.state.pollutants}/>
 
-                            <div>
+                            {/*<div>*/}
 
-                                <div className="w3-row">
-                                    <div className="w3-third w3-center w3-border selectable">
-                                        <p>NOX</p>
-                                    </div>
-                                    <div className="w3-third w3-center w3-border selectable">
-                                        <p>PM10</p>
-                                    </div>
-                                    <div className="w3-third w3-center w3-border selectable">
-                                        <p>O3</p>
-                                    </div>
-                                </div>
+                                {/*<div className="w3-row">*/}
+                                    {/*<div className="w3-third w3-center w3-border selectable">*/}
+                                        {/*<p>NOX</p>*/}
+                                    {/*</div>*/}
+                                    {/*<div className="w3-third w3-center w3-border selectable">*/}
+                                        {/*<p>PM10</p>*/}
+                                    {/*</div>*/}
+                                    {/*<div className="w3-third w3-center w3-border selectable">*/}
+                                        {/*<p>O3</p>*/}
+                                    {/*</div>*/}
+                                {/*</div>*/}
 
 
-                                <div className="w3-row">
-                                    <div className="w3-third w3-center w3-border selectable chosen">
-                                        <p>NOX</p>
-                                    </div>
-                                    <div className="w3-third w3-center w3-border selectable">
-                                        <p>PM2.5</p>
-                                    </div>
-                                    <div className="w3-third w3-center w3-border selectable">
-                                        <p>CO2</p>
-                                    </div>
-                                </div>
+                                {/*<div className="w3-row">*/}
+                                    {/*<div className="w3-third w3-center w3-border selectable chosen">*/}
+                                        {/*<p>NOX</p>*/}
+                                    {/*</div>*/}
+                                    {/*<div className="w3-third w3-center w3-border selectable">*/}
+                                        {/*<p>PM2.5</p>*/}
+                                    {/*</div>*/}
+                                    {/*<div className="w3-third w3-center w3-border selectable">*/}
+                                        {/*<p>CO2</p>*/}
+                                    {/*</div>*/}
+                                {/*</div>*/}
 
-                            </div>
+                            {/*</div>*/}
+
                         </div>
 
 
