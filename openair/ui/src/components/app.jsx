@@ -2,10 +2,11 @@ import React from 'react';
 import 'whatwg-fetch';
 
 import OptionsTitle from './options_title_panel';
-import StationsList from './stations_list';
+// import StationsList from './stations_list';
+import StationsList2 from '../containers/stations_list';
 
-import {getStations} from '../utils/api';
-import {buildStationObj} from '../utils/common';
+// import {getStations} from '../utils/api';
+// import {buildStationObj} from '../utils/common';
 
 export default class App extends React.Component {
 
@@ -32,34 +33,34 @@ export default class App extends React.Component {
 
     componentDidMount() {
 
-        getStations()
-            .then(data => {
-                let stations = data.map(item => buildStationObj(item)).slice(0, 8);
-                console.log("constructing the station objects for app props: " + stations);
-                this.setState({
-                    stations: stations
-                });
-            })
-            .catch(err => {
-                console.log(err);
-        });
+        // getStations()
+        //     .then(data => {
+        //         let stations = data.map(item => buildStationObj(item)).slice(0, 8);
+        //         console.log("constructing the station objects for app props: " + stations);
+        //         this.setState({
+        //             stations: stations
+        //         });
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        // });
     }
 
     handleClick() {
 
         // TODO dispatch to the store
 
-        getStations()
-            .then(data => {
-                let stations = data.map(item => buildStationObj(item)).slice(0, 8);
-                console.log("constructing the station objects for app props: " + stations);
-                this.setState({
-                    stations: stations
-                });
-            })
-            .catch(err => {
-                console.log(err);
-        });
+        // getStations()
+        //     .then(data => {
+        //         let stations = data.map(item => buildStationObj(item)).slice(0, 8);
+        //         console.log("constructing the station objects for app props: " + stations);
+        //         this.setState({
+        //             stations: stations
+        //         });
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        // });
 
     }
 
@@ -147,7 +148,8 @@ export default class App extends React.Component {
 
                         <div className="text-primary-color">
                             <OptionsTitle title={'station options'}/>
-                            <StationsList stations={this.state.stations}/>
+                            {/*<StationsList stations={this.state.stations}/>*/}
+                            <StationsList2/>
                         </div>
                     </div>
 

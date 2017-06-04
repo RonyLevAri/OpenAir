@@ -9,13 +9,17 @@ export default class Station extends React.Component {
             isActive: props.isActive,
             isChosen: props.isChosen
         };
+
+        this.handleClick = this.handleClick.bind(this);
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if (this.state.isActive !== nextState.isActive || this.state.isChosen !== nextState.isChosen) {
-            return true;
-        } else {
-            return false;
+        return (this.state.isActive !== nextState.isActive || this.state.isChosen !== nextState.isChosen);
+    }
+
+    handleClick() {
+        if (this.state.isActive && !this.state.isChosen) {
+            console.log(`now ${this.props.name} had been selected, need to report my parents`);
         }
     }
 
@@ -26,7 +30,7 @@ export default class Station extends React.Component {
         let chosen = this.state.isChosen ? ' chosen' : '';
 
         return (
-            <li className={"text-primary-color selectable" + selectable + chosen}>
+            <li onClick={this.handleClick} className={"text-primary-color selectable" + selectable + chosen}>
                 <span>{this.props.name}</span>
                 <i className="material-icons">settings_input_antenna</i>
             </li>
