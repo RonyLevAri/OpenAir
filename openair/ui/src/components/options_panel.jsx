@@ -2,7 +2,9 @@ import React from 'react';
 import OptionsTitle from './options_title_panel';
 import PollutantBoard from './options_pollutant_board';
 import TimeBoard from './options_time_board';
-import StationsList2 from '../containers/stations_list';
+import StationsList from '../components/stations_list';
+
+// import StationsList2 from '../containers/stations_list';
 
 const OptionsPanel = (props) => {
 
@@ -23,7 +25,7 @@ const OptionsPanel = (props) => {
 
             <div className="text-primary-color">
                 <OptionsTitle title={'station options'}/>
-                <StationsList2/>
+                <StationsList stations={props.stations}/>
             </div>
         </div>
     );

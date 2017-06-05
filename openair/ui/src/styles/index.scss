@@ -97,11 +97,12 @@
 			margin-right: 8px;
 		}
 		.chosen-list {
-			margin-top: 16px;
+			margin-top: 0px;
+			min-height: 55px;
 		}
 		.chosen-badge {
 			width: 150px;
-			margin: 0px 0px 0px 16px;
+			margin: 16px 0px 0px 16px;
 			display: inline-block;
 		}
 		.gis {

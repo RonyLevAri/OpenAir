@@ -15,8 +15,8 @@ import PresentationPanel from './presentation_panel';
 // import StationsList from './stations_list';
 // import StationsList2 from '../containers/stations_list';
 
-// import {getStations} from '../utils/api';
-// import {buildStationObj} from '../utils/common';
+import {getStations} from '../utils/api';
+import {buildStationObj} from '../utils/common';
 
 export default class App extends React.Component {
 
@@ -42,10 +42,10 @@ export default class App extends React.Component {
             ],
             selectedGraph: null,
             graphSelections: [
-                {key: 1, text: 'stam', type: 'pollutant'},
-                {key: 2, text: 'stam', type: 'station'},
-                {key: 3, text: 'stam', type: 'start'},
-                {key: 4, text: 'stam', type: 'end'},
+                // {key: 1, text: 'stam', type: 'pollutant'},
+                // {key: 2, text: 'stam', type: 'station'},
+                // {key: 3, text: 'stam', type: 'start'},
+                // {key: 4, text: 'stam', type: 'end'},
             ]
         };
         this.handleClick = this.handleClick.bind(this);
@@ -61,34 +61,21 @@ export default class App extends React.Component {
 
     componentDidMount() {
 
-        // getStations()
-        //     .then(data => {
-        //         let stations = data.map(item => buildStationObj(item)).slice(0, 8);
-        //         console.log("constructing the station objects for app props: " + stations);
-        //         this.setState({
-        //             stations: stations
-        //         });
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        // });
+        getStations()
+            .then(data => {
+                let stations = data.map(item => buildStationObj(item)).slice(0, 8);
+                console.log("constructing the station objects for app props: " + stations);
+                this.setState({
+                    stations: stations
+                });
+            })
+            .catch(err => {
+                console.log(err);
+        });
     }
 
     handleClick() {
 
-        // TODO dispatch to the store
-
-        // getStations()
-        //     .then(data => {
-        //         let stations = data.map(item => buildStationObj(item)).slice(0, 8);
-        //         console.log("constructing the station objects for app props: " + stations);
-        //         this.setState({
-        //             stations: stations
-        //         });
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        // });
     }
 
     render() {
@@ -98,7 +85,7 @@ export default class App extends React.Component {
                 <Header/>
                 <div className="main w3-row w3-border">
                     <VisualizationsMenu visualizationsOptions={this.state.visualizationsOptions}/>
-                    <OptionsPanel pollutants={this.state.pollutants} />
+                    <OptionsPanel stations={this.state.stations} pollutants={this.state.pollutants} />
                     <PresentationPanel graphSelections={this.state.graphSelections} graphs={this.state.graphs} />*/}
                 </div>
                 <Footer/>
