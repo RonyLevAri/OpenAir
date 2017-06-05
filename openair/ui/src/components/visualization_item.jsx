@@ -1,6 +1,7 @@
 import React from 'react';
 
 const VisualizationCard = (props) => {
+    // props: {isGraph}
 
     let display = props.isGraph ? ' graph': ' gis';
 

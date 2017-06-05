@@ -2,6 +2,7 @@ import React from 'react';
 import VisualizationKind from './visualization_menu_item';
 
 const VisualizationsMenu = (props) => {
+    // props: {visualizationsOptions}
 
     let visualizations = props.visualizationsOptions.map(kind => {
         return (

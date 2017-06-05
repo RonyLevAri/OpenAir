@@ -2,14 +2,16 @@ import React from 'react';
 import Pollutant from './pollutant_teal';
 
 const PollutantBoard = (props) => {
-
+    // props: {pollutants, onPollutantClick}
     let pollutants = props.pollutants.map(pollutant => {
         return (
             <Pollutant
                 key={pollutant.key}
+                id={pollutant.id}
                 name={pollutant.name}
                 isSelectable={pollutant.isSelectable}
                 isChosen={pollutant.isChosen}
+                onPollutantClick={props.onPollutantClick}
             />
         );
     });

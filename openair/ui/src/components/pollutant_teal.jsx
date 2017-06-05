@@ -1,15 +1,34 @@
 import React from 'react';
 
-const PollutantTeal = (props) => {
+// action creators
+import { selectPollutant } from '../actions/index';
 
-    let selectable = props.isSelectable ? ' selectable' : '';
-    let chosen = props.isChosen ? ' chosen' : '';
+class PollutantTeal extends React.Component {
+    // props: {key, id, name, isSelectable, isChosen, onPollutantClick}
 
-    return (
-        <div className={`w3-third w3-center w3-border selectable ${selectable} ${chosen}`}>
-            <p>{props.name}</p>
-        </div>
-    );
-};
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        if (!this.props.isChosen && this.props.isSelectable) {
+            const action = selectPollutant(this.props.id);
+            this.props.onPollutantClick(this.props.id);
+        }
+    }
+
+    render() {
+
+        let selectable = this.props.isSelectable ? ' selectable' : '';
+        let chosen = this.props.isChosen ? ' chosen' : '';
+
+        return (
+            <div className={`w3-third w3-center w3-border selectable ${selectable} ${chosen}`} onClick={this.handleClick}>
+                <p>{this.props.name}</p>
+            </div>
+        );
+    }
+}
 
 export default PollutantTeal;

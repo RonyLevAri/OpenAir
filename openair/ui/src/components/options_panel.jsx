@@ -1,12 +1,12 @@
 import React from 'react';
-import OptionsTitle from './options_title_panel';
-import PollutantBoard from './options_pollutant_board';
-import TimeBoard from './options_time_board';
+import OptionsTitle from './title_panel';
+import PollutantBoard from './pollutant_board';
+import TimeBoard from './time_board';
 import StationsList from '../components/stations_list';
 
-// import StationsList2 from '../containers/stations_list';
 
 const OptionsPanel = (props) => {
+// props: {pollutants, stations, onStationClick, onStationClick}
 
     return (
         <div className="options w3-col m2 dark-primary-color w3-center w3-border-right w3-border-left col-stretch">
@@ -16,16 +16,18 @@ const OptionsPanel = (props) => {
                 <TimeBoard/>
             </div>
 
-
             <div className="text-primary-color">
                 <OptionsTitle title={'pollutant options'}/>
-                <PollutantBoard pollutants={props.pollutants}/>
+                <PollutantBoard
+                    pollutants={props.pollutants}
+                    onPollutantClick={props.onPollutantClick}/>
             </div>
-
 
             <div className="text-primary-color">
                 <OptionsTitle title={'station options'}/>
-                <StationsList stations={props.stations}/>
+                <StationsList
+                    stations={props.stations}
+                    onStationClick={props.onStationClick}/>
             </div>
         </div>
     );

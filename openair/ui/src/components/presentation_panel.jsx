@@ -4,6 +4,7 @@ import GraphList from './graph_list';
 import GIS from './gis';
 
 const PresentationPanel = (props) => {
+    // props: {graphSelections, graphs}
     return (
         <div className="presentation w3-col m9 col-stretch secondary-text-color">
             <div className="w3-row">

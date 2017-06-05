@@ -2,6 +2,7 @@ import React from 'react';
 import Graph from './visualization_item';
 
 const GraphList = (props) => {
+    // props: {graphs}
 
     let content = props.graphs.map(graph => {
         return (
