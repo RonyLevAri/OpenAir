@@ -1,6 +1,8 @@
 import React from 'react';
 import 'whatwg-fetch';
 
+// TODO deal with duplicate code of handle clicks
+
 // components
 import Header from './header';
 import Footer from './footer';
@@ -39,17 +41,11 @@ export default class App extends React.Component {
             graphSelections: {pollutant: null, station: null, start: null, end: null}
 
         };
+        this.handleGraphClick = this.handleGraphClick.bind(this);
         this.handleCreateGraph = this.handleCreateGraph.bind(this);
         this.handlePollutantClick = this.handlePollutantClick.bind(this);
         this.handleStationClick = this.handleStationClick.bind(this);
-    }
-
-    componentWillMount() {
-
-    }
-
-    componentWillUnmount() {
-
+        this.handleGraphDelete = this.handleGraphDelete.bind(this);
     }
 
     componentDidMount() {
@@ -69,7 +65,7 @@ export default class App extends React.Component {
     handleCreateGraph() {
 
         let newState = JSON.parse(JSON.stringify(this.state));
-        let request = this.state.graphSelections;
+        let graphSelections = JSON.parse(JSON.stringify(this.state.graphSelections));
 
         newState.stations = this.clearSelections('stations');
         newState.pollutants = this.clearSelections('pollutants');
@@ -78,8 +74,28 @@ export default class App extends React.Component {
         newState.selectedGraph = null;
         newState.allowCreateGraph = false;
 
-        this.getMeasurements(request);
+        this.getMeasurements(graphSelections);
 
+        this.setState(
+            newState
+        );
+    }
+
+    handleGraphDelete(graphId) {
+
+        let newState = JSON.parse(JSON.stringify(this.state));
+
+        if (graphId === newState.selectedGraph) {
+            newState.stations = this.clearSelections('stations');
+            newState.pollutants = this.clearSelections('pollutants');
+            newState.graphs = this.clearSelections('graphs');
+            newState.graphSelections = this.clearChoices();
+            newState.selectedGraph = null;
+            newState.allowCreateGraph = false;
+        }
+        newState.graphs = newState.graphs.filter(graph => {
+           return (graph.id !== graphId);
+        });
         this.setState(
             newState
         );
@@ -89,24 +105,33 @@ export default class App extends React.Component {
 
         let newState = JSON.parse(JSON.stringify(this.state));
 
-        newState.graphs.map(graph => {
-            if (graph.id === graphId) {
-                newState.graphSelections = graph.graphSelections;
-                return Object.assign({}, graph, {isChosen: !graph.isChosen});
-            }
-            if (graph.id !== graphId && graph.isChosen)
-                return Object.assign({}, graph, {isChosen: !graph.isChosen});
-            return graph;
-        });
-        newState.stations = this.toggleSelections('stations', newState.graphSelections.station.id);
-        newState.pollutants = this.toggleSelections('pollutants', newState.graphSelections.pollutant.id);
-        newState.allowCreateGraph = false;
-
+        if (this.state.selectedGraph && this.state.selectedGraph === graphId) {
+            newState.stations = this.clearSelections('stations');
+            newState.pollutants = this.clearSelections('pollutants');
+            newState.graphs = this.clearSelections('graphs');
+            newState.graphSelections = this.clearChoices();
+            newState.selectedGraph = null;
+            newState.allowCreateGraph = false;
+        } else {
+            newState.selectedGraph = graphId;
+            newState.graphs = newState.graphs.map(graph => {
+                if (graph.id === graphId) {
+                    newState.graphSelections = graph.selections;
+                    return Object.assign({}, graph, {isChosen: !graph.isChosen});
+                }
+                if (graph.id !== graphId && graph.isChosen)
+                    return Object.assign({}, graph, {isChosen: !graph.isChosen});
+                return graph;
+            });
+            newState.stations = this.toggleSelections('stations', newState.graphSelections.station.id);
+            newState.pollutants = this.toggleSelections('pollutants', newState.graphSelections.pollutant.id);
+            newState.allowCreateGraph = false;
+        }
         this.setState(
             newState
         );
     }
-    // TODO deal with duplicate code of handle clicks
+
     handlePollutantClick(pollutantId) {
 
         if (this.isExistingGraphData() || this.isPollutantAlreadySelected(pollutantId))
@@ -173,32 +198,31 @@ export default class App extends React.Component {
     }
 
     toggleSelections(options, newChoiceId) {
-        let newList = this.state[options].map(option => {
+        return this.state[options].map(option => {
            if ((option.id === newChoiceId && !option.isChosen) || (option.id !== newChoiceId && option.isChosen))
                return Object.assign({}, option, {isChosen: !option.isChosen});
            return option;
         });
-        return newList
     }
 
     clearSelections(options) {
-        let newList = this.state[options].map(option => {
+        return this.state[options].map(option => {
             if (option.isChosen)
                 return Object.assign({}, option, {isChosen: !option.isChosen});
             return option;
         });
-        return newList;
     }
 
     getMeasurements(graphSelections) {
 
         getMeasurements(graphSelections)
             .then(data => {
-                let measurements = data.map(measurement => buildMeasurementObj(measurement)).slice(0, 8);
+                let measurements = data.map(measurement => buildMeasurementObj(measurement));
                 let newState = JSON.parse(JSON.stringify(this.state));
                 const newGraph = {
-                    key: newState.graphCounter + 1, id: newState.graphCounter + 1, isChosen: false, selections: this.state.graphSelections, measurements: measurements
+                    key: newState.graphCounter + 1, id: newState.graphCounter + 1, isChosen: false, selections: graphSelections, measurements: measurements
                 }
+
                 newState.graphCounter += 1;
                 newState.graphs = [... this.state.graphs, newGraph];
                 this.setState(
@@ -226,6 +250,7 @@ export default class App extends React.Component {
                         graphSelections={this.state.graphSelections}
                         graphs={this.state.graphs}
                         onGraphClick={this.handleGraphClick}
+                        onGraphDelete={this.handleGraphDelete}
                     />
                 </div>
                 <Footer/>

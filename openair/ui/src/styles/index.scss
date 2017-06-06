@@ -65,6 +65,15 @@ body {
 
 .chosen-list {
   margin-top: 0px;
+  height: 100px;
+}
+
+.delete-btn {
+  padding: 0px;
+}
+
+.btn-graph {
+  float: right;
 }
 
 /* presentation of the data */
@@ -87,11 +96,11 @@ body {
 
 .gis {
   padding-left: 0px;
-  height: 255px;
 }
 
 .graph {
   height: 350px;
+  margin-bottom: 20px;
 }
 
 /* footer */

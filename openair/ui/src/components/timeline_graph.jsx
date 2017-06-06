@@ -2,7 +2,6 @@ import React from 'react';
 import {ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
 const SimpleLineChart = (props) => {
-    console.log(props.measurements);
     return (
         <ResponsiveContainer>
             <LineChart data={props.measurements}

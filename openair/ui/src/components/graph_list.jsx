@@ -10,7 +10,8 @@ const GraphList = (props) => {
                 id={graph.id}
                 isChosen={graph.isChosen}
                 measurements={graph.measurements}
-                onGraphClicked={props.onGraphClicked}
+                onGraphClick={props.onGraphClick}
+                onGraphDelete={props.onGraphDelete}
             />
         );
     });
