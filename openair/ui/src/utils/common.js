@@ -13,5 +13,6 @@ export function buildStationObj(data) {
 
 export function graphSelectionCompleted(graphSelections) {
     let {pollutant, station, start, end} = graphSelections;
-    return (pollutant && station && start && end)
+    // return (pollutant && station && start && end);
+    return (pollutant && station);
 }

@@ -10,11 +10,15 @@ from . import models
 
 
 def measurements(request):
-    data_model = models.Measurement.objects.filter(measured__gte=datetime.date(2017, 5, 19), station_id=1,
-                                                   pollutant_id=1)
-    the_json = serializers.serialize('json', data_model)
-    print(the_json)
-    return HttpResponse(the_json)
+    if 'station' and 'pollutant' in request.GET and request.GET['station'] and request.GET['pollutant']:
+        station = request.GET['station']
+        pollutant = request.GET['pollutant']
+        data_model = models.Measurement.objects.filter(measured__gte=datetime.date(2017, 5, 19), station_id=station,
+                                                       pollutant_id=pollutant)
+        the_json = str(serializers.serialize('json', data_model))
+        return HttpResponse(the_json)
+    else:
+        return HttpResponse("query is not valid")
 
 
 def stations(request):

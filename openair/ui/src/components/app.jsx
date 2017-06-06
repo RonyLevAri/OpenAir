@@ -9,7 +9,7 @@ import OptionsPanel from './options_panel';
 import PresentationPanel from './presentation_panel';
 
 // server api
-import { getStations } from '../utils/api';
+import { getStations, getMeasurements } from '../utils/api';
 
 // utils
 import { buildStationObj } from '../utils/common';
@@ -57,7 +57,7 @@ export default class App extends React.Component {
 
         getStations()
             .then(data => {
-                let stations = data.map(item => buildStationObj(item)).slice(0, 8);
+                let stations = data.map(item => buildStationObj(item)).slice(0, 20);
                 this.setState({
                     stations: stations
                 });
@@ -99,9 +99,10 @@ export default class App extends React.Component {
             return pollutant;
         });
 
-        if (graphSelectionCompleted(newState.graphSelections)) {
-            this.getMeasurements();
-        }
+        // if (graphSelectionCompleted(newState.graphSelections)) {
+        //     this.getMeasurements(newState.graphSelections);
+        //     // deselect and so on
+        // }
 
         this.setState(
             newState
@@ -125,16 +126,29 @@ export default class App extends React.Component {
             return station;
         });
 
-        if (graphSelectionCompleted(newState.graphSelections)) {
-            this.getMeasurements();
-        }
+        // if (graphSelectionCompleted(newState.graphSelections)) {
+        //     this.getMeasurements(JSON.parse(JSON.stringify(newState.graphSelections)));
+        //     // deselect and so on
+        // }
+
         this.setState(
             newState
         );
     }
 
-    getMeasurements() {
-        console.log('call django server');
+    getMeasurements(graphSelections) {
+
+        console.log('calling django server with', graphSelections);
+
+        getMeasurements(graphSelections)
+            .then(data => {
+                console.log(data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+
     }
 
     render() {
