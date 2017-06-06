@@ -12,10 +12,8 @@ class PollutantTeal extends React.Component {
     }
 
     handleClick() {
-        if (!this.props.isChosen && this.props.isSelectable) {
-            const action = selectPollutant(this.props.id);
-            this.props.onPollutantClick(this.props.id);
-        }
+        const action = selectPollutant(this.props.id);
+        this.props.onPollutantClick(this.props.id);
     }
 
     render() {

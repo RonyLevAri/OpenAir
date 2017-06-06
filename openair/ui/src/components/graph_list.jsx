@@ -2,13 +2,15 @@ import React from 'react';
 import Graph from './visualization_item';
 
 const GraphList = (props) => {
-    // props: {graphs}
+    // props: {graphs, onGraphClicked}
 
     let content = props.graphs.map(graph => {
         return (
             <Graph
                 key={graph.key}
-                isGraph={graph.isGraph}
+                id={graph.id}
+                isChosen={graph.isChosen}
+                onGraphClicked={this.props.onGraphClicked}
             />
         );
     });

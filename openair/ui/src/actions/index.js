@@ -1,6 +1,7 @@
 import { ADD_GRAPH } from './action_types';
 import { SELECT_POLLUTANT } from './action_types';
 import { SELECT_STATION } from './action_types';
+import { SELECT_GRAPH } from './action_types';
 
 export function createGraph() {
     return {
@@ -19,5 +20,12 @@ export function selectStation(stationId) {
     return {
         type: SELECT_STATION,
         id: stationId
+    };
+}
+
+export function selectGraph(graphId) {
+    return {
+        type: SELECT_GRAPH,
+        id: graphId,
     };
 }

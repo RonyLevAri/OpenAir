@@ -11,11 +11,9 @@ export default class Station extends React.Component {
     }
 
     handleClick() {
-        if (!this.props.isChosen && this.props.isSelectable && this.props.isActive) {
-            const action = selectStation(this.props.id);
-            console.log('list item action: ', action);
-            this.props.onStationClick(this.props.id);
-        }
+        console.log('clicked!');
+        const action = selectStation(this.props.id);
+        this.props.onStationClick(this.props.id);
     }
 
     render() {

@@ -1,13 +1,30 @@
 import React from 'react';
 
-const VisualizationCard = (props) => {
-    // props: {isGraph}
+// action creators
+import { selectGraph } from '../actions/index';
 
-    let display = props.isGraph ? ' graph': ' gis';
+class VisualizationCard extends React.Component {
+    // props: {key, id, isChosen, onGraphClicked}
+    constructor(props) {
+        super(props);
+        this.handelClick = this.handelClick.bind(this);
+    }
 
-    return (
-        <div className={`w3-card-2 w3-section white ${display}`}>content</div>
-    );
-};
+    handelClick() {
+        const action = selectGraph(this.props.id);
+        this.props.onGraphClicked(this.props.id);
+    }
+
+    render() {
+        let chosen = this.props.isChosen ? ' w3-card-3': ' w3-card';
+        return (
+            <div className={`${chosen} w3-section white graph`} onClick={this.handelClick}>
+                <header className={`w3-container w3-blue w3-align-right`}>
+                    <button className="w3-button w3-circle light-primary-color">x</button>
+                </header>
+            </div>
+        );
+    }
+}
 
 export default VisualizationCard;

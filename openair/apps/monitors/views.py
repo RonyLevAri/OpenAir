@@ -1,8 +1,5 @@
 import datetime
-import json
 
-from django.shortcuts import render
-from django.http import JsonResponse
 from django.http import HttpResponse
 from django.core import serializers
 
@@ -13,7 +10,7 @@ def measurements(request):
     if 'station' and 'pollutant' in request.GET and request.GET['station'] and request.GET['pollutant']:
         station = request.GET['station']
         pollutant = request.GET['pollutant']
-        data_model = models.Measurement.objects.filter(measured__gte=datetime.date(2017, 5, 19), station_id=station,
+        data_model = models.Measurement.objects.filter(measured__gte=datetime.date(2017, 6, 3), station_id=station,
                                                        pollutant_id=pollutant)
         the_json = str(serializers.serialize('json', data_model))
         return HttpResponse(the_json)
