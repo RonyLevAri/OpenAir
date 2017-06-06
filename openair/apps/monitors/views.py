@@ -11,7 +11,7 @@ def measurements(request):
         station = request.GET['station']
         pollutant = request.GET['pollutant']
         data_model = models.Measurement.objects.filter(measured__gte=datetime.date(2017, 6, 3), station_id=station,
-                                                       pollutant_id=pollutant)
+                                                       pollutant_id=pollutant).order_by('measured')
         the_json = str(serializers.serialize('json', data_model))
         return HttpResponse(the_json)
     else:

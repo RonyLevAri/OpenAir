@@ -3,14 +3,14 @@ import Graph from './visualization_card';
 
 const GraphList = (props) => {
     // props: {graphs, onGraphClicked}
-
     let content = props.graphs.map(graph => {
         return (
             <Graph
                 key={graph.key}
                 id={graph.id}
                 isChosen={graph.isChosen}
-                onGraphClicked={this.props.onGraphClicked}
+                measurements={graph.measurements}
+                onGraphClicked={props.onGraphClicked}
             />
         );
     });

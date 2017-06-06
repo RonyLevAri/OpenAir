@@ -17,6 +17,19 @@ export function buildStationObj(data) {
     return station;
 }
 
+export function buildMeasurementObj(data) {
+    let measurement = {};
+    try {
+        measurement.time = data["fields"]["measured"];
+        if(data["fields"]["is_valid"])
+            measurement.value = data["fields"]["value"];
+    }
+    catch(err) {
+        measurement = {};
+    }
+    return measurement;
+}
+
 export function graphSelectionCompleted(graphSelections) {
     let {pollutant, station, start, end} = graphSelections;
     // return (pollutant && station && start && end);

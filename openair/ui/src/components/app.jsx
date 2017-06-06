@@ -12,7 +12,7 @@ import PresentationPanel from './presentation_panel';
 import { getStations, getMeasurements } from '../utils/api';
 
 // utils
-import { buildStationObj, graphSelectionCompleted } from '../utils/common';
+import { buildStationObj, graphSelectionCompleted, buildMeasurementObj } from '../utils/common';
 
 export default class App extends React.Component {
 
@@ -32,8 +32,7 @@ export default class App extends React.Component {
                 {key: 1, id: 1, name: 'Timeline', icon: 'timeline', isSelectable: true, isChosen: true},
                 {key: 2, id: 2, name: 'AQI', icon: 'grain', isSelectable: true, isChosen: false}
             ],
-            graphs: [
-            ],
+            graphs: [],
             allowCreateGraph: false,
             graphCounter: 0,
             selectedGraph: null,
@@ -110,7 +109,7 @@ export default class App extends React.Component {
     // TODO deal with duplicate code of handle clicks
     handlePollutantClick(pollutantId) {
 
-        if (this.state.selectedGraph || (this.state.graphSelections.pollutant && (this.state.graphSelections.pollutant.id === pollutantId)))
+        if (this.isExistingGraphData() || this.isPollutantAlreadySelected(pollutantId))
             return;
 
         let newState = JSON.parse(JSON.stringify(this.state));
@@ -135,8 +134,9 @@ export default class App extends React.Component {
 
     handleStationClick(stationId) {
 
-        if (this.state.selectedGraph || (this.state.graphSelections.station && (this.state.graphSelections.station.id === stationId)))
+        if (this.isExistingGraphData() || this.isStationsAlreadySelected(stationId))
             return;
+
 
         let newState = JSON.parse(JSON.stringify(this.state));
         newState.stations = newState.stations.map(station => {
@@ -154,6 +154,18 @@ export default class App extends React.Component {
         this.setState(
             newState
         );
+    }
+
+    isExistingGraphData() {
+        return this.state.selectedGraph;
+    }
+
+    isStationsAlreadySelected(stationId) {
+        return (this.state.graphSelections.station && (this.state.graphSelections.station.id === stationId));
+    }
+
+    isPollutantAlreadySelected(pollutantId) {
+        return (this.state.graphSelections.pollutant && (this.state.graphSelections.pollutant.id === pollutantId));
     }
 
     clearChoices() {
@@ -182,13 +194,16 @@ export default class App extends React.Component {
 
         getMeasurements(graphSelections)
             .then(data => {
+                let measurements = data.map(measurement => buildMeasurementObj(measurement)).slice(0, 8);
                 let newState = JSON.parse(JSON.stringify(this.state));
                 const newGraph = {
-                    key: newState.graphCounter + 1, id: newState.graphCounter + 1, isChosen: false, isGraph: true, selections: this.state.graphSelections
-                };
+                    key: newState.graphCounter + 1, id: newState.graphCounter + 1, isChosen: false, selections: this.state.graphSelections, measurements: measurements
+                }
                 newState.graphCounter += 1;
-                newState.graphs = [...newState.graphs, newGraph];
-                console.log(data);
+                newState.graphs = [... this.state.graphs, newGraph];
+                this.setState(
+                    newState
+                );
             })
             .catch(err => {
                 console.log(err);
@@ -196,6 +211,7 @@ export default class App extends React.Component {
     }
 
     render() {
+
         return (
             <div className="root">
                 <Header onCreateGraph={this.handleCreateGraph} allowCreateGraph={this.state.allowCreateGraph}/>

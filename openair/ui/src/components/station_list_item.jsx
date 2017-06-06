@@ -11,14 +11,11 @@ export default class Station extends React.Component {
     }
 
     handleClick() {
-        console.log('clicked!');
         const action = selectStation(this.props.id);
         this.props.onStationClick(this.props.id);
     }
 
     render() {
-        console.log('In stations list item render');
-
         let selectable = (this.props.isActive && this.props.isSelectable) ? ' selectable' : '';
         let chosen = this.props.isChosen ? ' chosen' : '';
 
