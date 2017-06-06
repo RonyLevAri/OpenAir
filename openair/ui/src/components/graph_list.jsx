@@ -1,5 +1,5 @@
 import React from 'react';
-import Graph from './visualization_item';
+import Graph from './visualization_card';
 
 const GraphList = (props) => {
     // props: {graphs, onGraphClicked}
