@@ -22,9 +22,8 @@ const OptionsPanel = (props) => {
                     pollutants={props.pollutants}
                     onPollutantClick={props.onPollutantClick}/>
             </div>
-
-            <div className="text-primary-color">
-                <OptionsTitle title={'station options'}/>
+            <OptionsTitle title={'station options'}/>
+            <div className="stations text-primary-color">
                 <StationsList
                     stations={props.stations}
                     onStationClick={props.onStationClick}/>

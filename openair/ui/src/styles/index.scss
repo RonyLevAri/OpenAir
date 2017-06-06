@@ -1,116 +1,209 @@
-		.dark-primary-color    { background: #0097A7; }
-		.default-primary-color { background: #00BCD4; }
-		.light-primary-color   { background: #B2EBF2; }
-		.text-primary-color    { color: #FFFFFF; }
-		.accent-color          { background: #FF4081; }
-		.primary-text-color    { color: #212121; }
-		.secondary-text-color  { color: #757575; }
-		.divider-color         { border-color: #BDBDBD; }
-		.white 				   { background: #FFFFFF; }
-		.inactive-dark { color: rgba(255, 255, 255, 0.5); }
-		.on-hover-dark { color: rgba(0, 0, 0, 0.26); }
+html, body, .root, #app, .col-stretch {
+  height: 100%;
+}
 
-		/* Rules for sizing the icon. */
-		.material-icons.md-18 { font-size: 18px; }
-		.material-icons.md-24 { font-size: 24px; }
-		.material-icons.md-36 { font-size: 36px; }
-		.material-icons.md-48 { font-size: 48px; }
+body {
+  background-color: #f1f1f1;
+  padding: 0;
+  margin: 0;
+}
 
-		/* Rules for using icons as black on a light background. */
-		.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
-		.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+.root, #app {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
 
-		/* Rules for using icons as white on a dark background. */
-		.material-icons.md-light { color: rgba(255, 255, 255, 1); }
-		.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.5); }
+/* header */
 
-		.material-icons.not-active { color: red; }
-		.material-icons.active { color: green; }
+.header {
+  height: 55px;
+}
 
-		html, body, .root, .col-stretch {
-			height: 100%;
-		}
+.col-header {
+  padding: 8px 16px 8px 16px;
+}
 
-		#app {
-			height: 100%;
-		}
 
-		body {
-			background-color: #f1f1f1;
-			font-family: Arial, Helvetica, sans-serif;
-			overflow-y: scroll;
-			padding: 0;
-            margin: 0;
-		}
+/* main content */
 
-		.logo {
-		  	background: url("../images/logo-white.png") no-repeat 20% 50% #0097A7;
-		}
+.main {
+  flex: 1 100%;
+  justify-content: space-between;
+}
 
-		.root {
-		  font-family: Arial, Helvetica, sans-serif;
-		  display: flex;
-		  flex-direction: column;
-		}
+/* side bar menu */
+.menu {
+  height: 100%;
+}
 
-		body {
-		  overflow: hidden;
-		}
+.v-menu-item {
+  margin-bottom: 10px;
+}
 
-		.header {
-		  flex: 0 0 auto;
-		  height: 55px;
-		}
+.v-menu-item-chosen {
+  border-right: solid 5px;
+}
 
-		.main {
-		  flex: 1 1 auto;
-		  position: relative;/* need this to position inner content */
-		/*  overflow-y: auto;*/
-		  overflow-y: hidden;
-		}
+/* side bar options */
 
-		.footer {
-		  flex: 0 0 auto;
-		  height: 40px;
-		}
-		.col-header {
-			padding: 8px 16px 8px 16px;
-		}
-		.selectable:hover {
-			color: rgba(0, 0, 0, 0.26);
-			cursor: pointer; cursor: hand;
-		}
-		.v-menu-item {
-			margin-bottom: 10px;
-		}
-		.v-menu-item-chosen {
-			border-right: solid 5px;
-		}
-		.chosen {
-	/*		border: 1px ridge #B2EBF2;*/
-			background-color: #B2EBF2;
-		}
-		.text-strong {
-			font-weight: bold;
-		}
-		.station-list > li > span {
-			margin-right: 8px;
-		}
-		.chosen-list {
-			margin-top: 0px;
-			min-height: 55px;
-		}
-		.chosen-badge {
-			width: 150px;
-			margin: 16px 0px 0px 16px;
-			display: inline-block;
-		}
-		.gis {
-			padding-left: 0px;
-		}
-		.graph {
-			height: 250px;
-		}
-		.badge-text {
-			display: inline;
-		}
+.options {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stations {
+  flex: 1;
+  overflow-y: scroll;
+}
+
+.station-list > li > span {
+  margin-right: 8px;
+}
+
+.chosen-list {
+  margin-top: 0px;
+}
+
+/* presentation of the data */
+
+.presentation {
+  flex: 1 100%;
+  padding: 20px;
+  overflow-y: scroll;
+}
+
+.chosen-badge {
+  width: 150px;
+  margin: 16px 0px 0px 16px;
+  display: inline-block;
+}
+
+.badge-text {
+  display: inline;
+}
+
+.gis {
+  padding-left: 0px;
+}
+
+.graph {
+  height: 250px;
+}
+
+/* footer */
+
+.footer {
+  height: 40px;
+}
+
+/* general styles */
+.dark-primary-color {
+  background: #0097A7;
+}
+
+.default-primary-color {
+  background: #00BCD4;
+}
+
+.light-primary-color {
+  background: #B2EBF2;
+}
+
+.text-primary-color {
+  color: #FFFFFF;
+}
+
+.accent-color {
+  background: #FF4081;
+}
+
+.primary-text-color {
+  color: #212121;
+}
+
+.secondary-text-color {
+  color: #757575;
+}
+
+.divider-color {
+  border-color: #BDBDBD;
+}
+
+.white {
+  background: #FFFFFF;
+}
+
+.inactive-dark {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.on-hover-dark {
+  color: rgba(0, 0, 0, 0.26);
+}
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 {
+  font-size: 18px;
+}
+
+.material-icons.md-24 {
+  font-size: 24px;
+}
+
+.material-icons.md-36 {
+  font-size: 36px;
+}
+
+.material-icons.md-48 {
+  font-size: 48px;
+}
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.material-icons.md-dark.md-inactive {
+  color: rgba(0, 0, 0, 0.26);
+}
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light {
+  color: rgba(255, 255, 255, 1);
+}
+
+.material-icons.md-light.md-inactive {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.material-icons.not-active {
+  color: red;
+}
+
+.material-icons.active {
+  color: green;
+}
+
+.selectable:hover {
+  color: rgba(0, 0, 0, 0.26);
+  cursor: pointer;
+  cursor: hand;
+}
+
+.chosen {
+  background-color: #B2EBF2;
+}
+
+.text-strong {
+  font-weight: bold;
+}
+
+.logo {
+  background: url("../images/logo-white.png") no-repeat 20% 50% #0097A7;
+}
+
+
+
