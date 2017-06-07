@@ -8,7 +8,7 @@ const PresentationPanel = (props) => {
     return (
         <div className="presentation w3-col m9 col-stretch secondary-text-color">
             <div className="w3-row">
-                <ChoicePanel graphSelections={props.graphSelections}/>
+                <ChoicePanel graphSelections={props.graphSelections} onChoiceDelete={props.onChoiceDelete}/>
                 <GraphList graphs={props.graphs} onGraphClick={props.onGraphClick} onGraphDelete={props.onGraphDelete}/>
                 <GIS/>
             </div>

@@ -46,6 +46,7 @@ export default class App extends React.Component {
         this.handlePollutantClick = this.handlePollutantClick.bind(this);
         this.handleStationClick = this.handleStationClick.bind(this);
         this.handleGraphDelete = this.handleGraphDelete.bind(this);
+        this.handleChoiceDelete = this.handleChoiceDelete.bind(this);
     }
 
     componentDidMount() {
@@ -128,6 +129,27 @@ export default class App extends React.Component {
             newState.allowCreateGraph = false;
         }
         this.setState(
+            newState
+        );
+    }
+
+    handleChoiceDelete(choiceType) {
+
+        if (this.state.selectedGraph)
+            return;
+
+        let newState = JSON.parse(JSON.stringify(this.state));
+
+        if (choiceType === 'station') {
+            newState.stations = this.clearSelections('stations');
+            newState.graphSelections.station = null;
+        }
+        if (choiceType === 'pollutant') {
+            newState.pollutants = this.clearSelections('pollutants');
+            newState.graphSelections.pollutant = null;
+        }
+        newState.allowCreateGraph = graphSelectionCompleted(newState.graphSelections);
+        this.setState (
             newState
         );
     }
@@ -251,6 +273,7 @@ export default class App extends React.Component {
                         graphs={this.state.graphs}
                         onGraphClick={this.handleGraphClick}
                         onGraphDelete={this.handleGraphDelete}
+                        onChoiceDelete={this.handleChoiceDelete}
                     />
                 </div>
                 <Footer/>

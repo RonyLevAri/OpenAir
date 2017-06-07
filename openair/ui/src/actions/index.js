@@ -3,6 +3,7 @@ import { SELECT_POLLUTANT } from './action_types';
 import { SELECT_STATION } from './action_types';
 import { SELECT_GRAPH } from './action_types';
 import { DELETE_GRAPH } from './action_types';
+import { DELETE_CHOICE } from './action_types';
 
 export function createGraph() {
     return {
@@ -35,5 +36,12 @@ export function deleteGraph(graphId) {
     return {
         type: DELETE_GRAPH,
         id: graphId,
+    };
+}
+
+export function deleteChoice(choiceType) {
+    return {
+        type: DELETE_CHOICE,
+        choiceType: choiceType
     };
 }
