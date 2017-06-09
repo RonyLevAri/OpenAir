@@ -10,7 +10,10 @@ const PresentationPanel = (props) => {
             <div className="w3-row">
                 <ChoicePanel graphSelections={props.graphSelections} onChoiceDelete={props.onChoiceDelete}/>
                 <GraphList graphs={props.graphs} onGraphClick={props.onGraphClick} onGraphDelete={props.onGraphDelete}/>
-                <GIS/>
+                <GIS
+                    initialCenter={props.initialCenter}
+                    initialZoom={props.initialZoom}
+                    stations={props.stations}/>
             </div>
         </div>
     );

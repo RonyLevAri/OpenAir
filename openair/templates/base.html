@@ -7,10 +7,14 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>OpenAir</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAC02o8DZPnnxLLL1trOrdPoMGYkV4x8bo&callback"
+    async defer></script>
     {% render_bundle 'index' 'css' %}
 </head>
 <body>
     <div id="app"></div>
     {% render_bundle 'index' 'js' %}
+    <div id="map"></div>
+
 </body>
 </html>

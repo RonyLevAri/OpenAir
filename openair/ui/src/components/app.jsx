@@ -38,7 +38,10 @@ export default class App extends React.Component {
             allowCreateGraph: false,
             graphCounter: 0,
             selectedGraph: null,
-            graphSelections: {pollutant: null, station: null, start: null, end: null}
+            graphSelections: {pollutant: null, station: null, start: null, end: null},
+            initialCenter: { lng: 32.085294, lat: 34.814046 },
+            initialZoom: 8,
+
 
         };
         this.handleGraphClick = this.handleGraphClick.bind(this);
@@ -274,6 +277,9 @@ export default class App extends React.Component {
                         onGraphClick={this.handleGraphClick}
                         onGraphDelete={this.handleGraphDelete}
                         onChoiceDelete={this.handleChoiceDelete}
+                        initialCenter={this.state.initialCenter}
+                        initialZoom={this.state.initialZoom}
+                        stations={this.state.stations}
                     />
                 </div>
                 <Footer/>
