@@ -47,10 +47,10 @@ import logging
 import json
 from urllib.request import urlopen
 
-# try:
-#     from openair.apps.monitors import models
-# except ImportError as e:
-#     pass
+try:
+    from openair.apps.monitors import models
+except ImportError as e:
+    pass
 
 _STATION_FETCH_ROUTE = 'http://www.svivaaqm.net/api/stations?type=json'
 _STATION_FETCH_ROUT_PREFIX = 'http://www.svivaaqm.net/api/stations/'

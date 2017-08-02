@@ -28,7 +28,7 @@ class TestMinerFunctionality(TestCase):
 
     def test_station_list_fetching_api_error(self):
         bad_url = 'not a url'
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             miner._fetch_from_mana(bad_url)
 
     def test_station_list_extraction(self):
